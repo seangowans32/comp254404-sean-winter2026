@@ -20,7 +20,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package linkedlists;
+package week2.linkedlists;
+
+import java.util.ArrayList;
 
 /**
  * A basic singly linked list implementation.
@@ -204,7 +206,73 @@ public class SinglyLinkedList<E> implements Cloneable {
     return h;
   }
 
-  /**
+    public void swapNodes(Node<E> a, Node<E> b) {
+        if(a == null || b == null || a == b) return;
+
+        Node<E> prevA = null, prevB = null, cur = head;
+
+        // head → A → B → C → null
+        while(cur != null) {
+            if(cur.getNext() == a) {
+                prevA = cur;
+            }
+            if(cur.getNext() == b) {
+                prevB = cur;
+            }
+            cur = cur.getNext();
+        }
+
+        if(a != head && prevA == null) return;
+        if(b != head && prevB == null) return;
+
+        if(a.getNext() == b) {
+            // This Checks if A is the Head and B is the next node
+            if(prevA != null) {
+                prevA.setNext(b);
+            } else {
+                head = b;
+            }
+            // head → A → B → C → null
+            a.setNext(b.getNext());
+            b.setNext(a);
+
+        } else if(b.getNext() == a) {
+            // This Checks if B is the Head and A is the next node
+            if(prevB != null) {
+                prevB.setNext(a);
+            } else {
+                head = a;
+            }
+            // head → A → B → C → null
+            b.setNext(a.getNext());
+            a.setNext(b);
+
+        } else {
+            if(prevA != null) {
+                prevA.setNext(b);
+            } else {
+                head = b;
+            }
+
+            if(prevB != null) {
+                prevB.setNext(a);
+            } else {
+                head = a;
+            }
+            Node<E> tmp = a.getNext();
+            a.setNext(b.getNext());
+            b.setNext(tmp);
+        }
+
+        // Just need to update that tail
+        if(a == tail) {
+            tail = b;
+        } else if (b == tail) {
+            tail = a;
+        }
+    }
+
+    /**
    * Produces a string representation of the contents of the list.
    * This exists for debugging purposes only.
    */
@@ -220,18 +288,30 @@ public class SinglyLinkedList<E> implements Cloneable {
     sb.append(")");
     return sb.toString();
   }
+
   //main method
-  public static void main(String[] args)
-  {
-	  
+  public static void main(String[] args) {
 	  SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 	  list.addFirst("MSP");
 	  list.addLast("ATL");
 	  list.addLast("BOS");
 	  //
-	  list.addFirst("LAX");
-	  System.out.println(list);
+	  //list.addFirst("LAX");
+	  //System.out.println(list);
 	  //
+
+      SinglyLinkedList<String> L = new SinglyLinkedList<String>();
+      L.addFirst("Hello");
+      L.addLast("one");
+      L.addLast("two");
+      L.addLast("three");
+      L.addLast("world");
+
+      Node<String> node1 = L.head;
+      Node<String> node2 = L.tail;
+
+      System.out.println("Before: " + L);
+      L.swapNodes(node1, node2);
+      System.out.println("After: " + L);
   }
-  
 }

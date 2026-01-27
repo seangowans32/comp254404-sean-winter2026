@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package linkedlists;
+package week2.linkedlists;
 
 /**
  * A basic doubly linked list implementation.
@@ -207,7 +207,62 @@ public class DoublyLinkedList<E> {
     return node.getElement();
   }
 
-  /**
+    public void concatenate(DoublyLinkedList<E> other) {
+        // nothing to add
+        if(other == null || other.isEmpty()) return;
+
+        // avoid self-concatenation
+        if(this == other) return;
+
+        // If this list is empty, adopt other's chain
+        if(this.isEmpty()) {
+            // List L = (header)(trailer) List M = (header) node_1 node_2 node_3 (trailer)
+            Node<E> firstOther = other.header.getNext();
+            // = M.node_1
+
+            Node<E> lastOther = other.trailer.getPrev();
+            // = M.node_3
+
+            // Connect the lists
+            this.header.setNext(firstOther);
+            firstOther.setPrev(this.header);
+
+            // Reset the sentinel nodes
+            this.trailer.setPrev(lastOther);
+            lastOther.setNext(this.trailer);
+
+            this.size = other.size;
+        } else {
+            // List L = (header) node_1 node_2 node_3 node_4 node_5 (trailer) List M = (header) node_1 node_2 node_3 (trailer)
+            Node<E> lastThis = this.trailer.getPrev();
+            // = L.node_5
+
+            Node<E> firstOther = other.header.getNext();
+            // = M.node_1
+
+            Node<E> lastOther = other.trailer.getPrev();
+            // = M.node_3
+
+            // Connect the lists
+            lastThis.setNext(firstOther);
+            // L.node_5 -> M.node_1
+            firstOther.setPrev(lastThis);
+            // L.node_5 <- M.node_1
+
+            // Reset the sentinel nodes
+            lastOther.setNext(this.trailer);
+            this.trailer.setPrev(lastOther);
+
+            this.size += other.size;
+        }
+
+        // Reset other to empty
+        other.header.setNext(other.trailer);
+        other.trailer.setPrev(other.header);
+        other.size = 0;
+    }
+
+    /**
    * Produces a string representation of the contents of the list.
    * This exists for debugging purposes only.
    */
@@ -223,9 +278,9 @@ public class DoublyLinkedList<E> {
     sb.append(")");
     return sb.toString();
   }
-//main method
-  public static void main(String[] args)
-  {
+
+  //main method
+  public static void main(String[] args) {
 	  //create and populate a doubly linked list
 	  DoublyLinkedList<String> list = new DoublyLinkedList<String>();
 	  list.addFirst("MSP");
@@ -233,9 +288,25 @@ public class DoublyLinkedList<E> {
 	  list.addLast("BOS");
 	  //
 	  list.addFirst("LAX");
-	  
-	  System.out.println(list);
-	  System.out.println(list.first());
+      //System.out.println(list);
+      //System.out.println(list.first());
 	  //
+
+      DoublyLinkedList<String> L = new DoublyLinkedList<>();
+      L.addFirst("Hello");
+      L.addLast("world");
+      L.addLast("one");
+      L.addLast("two");
+      L.addLast("three");
+
+      DoublyLinkedList<String> M = new DoublyLinkedList<>();
+      M.addFirst("four");
+      M.addLast("five");
+      M.addLast("six");
+
+      System.out.println(L);
+      System.out.println(M);
+      L.concatenate(M);
+      System.out.println("This is my new list: " + L);
   }
 } //----------- end of DoublyLinkedList class -----------
