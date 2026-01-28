@@ -207,6 +207,7 @@ public class DoublyLinkedList<E> {
     return node.getElement();
   }
 
+    // Exercise 1
     public void concatenate(DoublyLinkedList<E> other) {
         // nothing to add
         if(other == null || other.isEmpty()) return;
@@ -292,6 +293,7 @@ public class DoublyLinkedList<E> {
       //System.out.println(list.first());
 	  //
 
+      // Exercise 1
       DoublyLinkedList<String> L = new DoublyLinkedList<>();
       L.addFirst("Hello");
       L.addLast("world");

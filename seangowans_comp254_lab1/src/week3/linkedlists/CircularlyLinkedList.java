@@ -165,6 +165,7 @@ public class CircularlyLinkedList<E> implements Cloneable {
     return head.getElement();
   }
 
+    // Exercise 3
     public CircularlyLinkedList<E> clone() throws CloneNotSupportedException {
         // always use inherited Object.clone() to create the initial copy
 
@@ -240,6 +241,7 @@ public class CircularlyLinkedList<E> implements Cloneable {
 //	  System.out.println(circularList);
 	  //
 
+      // Exercise 3
       CircularlyLinkedList<String> Original = new CircularlyLinkedList<>();
       Original.addLast("LAX");
       Original.addLast("MSP");

@@ -206,6 +206,7 @@ public class SinglyLinkedList<E> implements Cloneable {
     return h;
   }
 
+    // Exercise 2
     public void swapNodes(Node<E> a, Node<E> b) {
         if(a == null || b == null || a == b) return;
 
@@ -300,6 +301,7 @@ public class SinglyLinkedList<E> implements Cloneable {
 	  //System.out.println(list);
 	  //
 
+      // Exercise 2
       SinglyLinkedList<String> L = new SinglyLinkedList<String>();
       L.addFirst("Hello");
       L.addLast("one");
