@@ -42,7 +42,7 @@ public class UniquenessExperiment {
      */
     private static int findMaxN(boolean testUnique1) {
         int low = 1000;
-        int high = testUnique1 ? 100000 : 10000000;
+        int high = testUnique1 ? 10_000_000 : 10_000_000;
         int best = low;
 
         while (low <= high) {
