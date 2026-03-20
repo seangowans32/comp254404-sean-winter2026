@@ -20,22 +20,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package week6.stacks;
 
-/**
- * An interface for a position which is an abstraction for the
- * location at which a single element is stored in a positional
- * container.
- *
- * @author Michael T. Goodrich
- * @author Roberto Tamassia
- * @author Michael H. Goldwasser
- */
-public interface Position<E> {
-    /**
-     * Returns the element stored at this position.
-     *
-     * @return the stored element
-     * @throws IllegalStateException if position no longer valid
-     */
-    E getElement() throws IllegalStateException;
+import java.util.Arrays;
+
+
+public class ReverseWithStack {
+
+  /** A generic method for reversing an array. */
+  public static <E> void reverse(E[] a) {
+    Stack<E> buffer = new ArrayStack<>(a.length);
+    for (int i=0; i < a.length; i++)
+      buffer.push(a[i]);
+    for (int i=0; i < a.length; i++)
+      a[i] = buffer.pop();
+  }
+
+  /** Tester routine for reversing arrays */
+  public static void main(String args[]) {
+    Integer[] a = {4, 8, 15, 16, 23, 42};  // autoboxing allows this
+    String[] s = {"Jack", "Kate", "Hurley", "Jin", "Michael"};
+    System.out.println("a = " + Arrays.toString(a));
+    System.out.println("s = " + Arrays.toString(s));
+    System.out.println("Reversing...");
+    reverse(a);
+    reverse(s);
+    System.out.println("a = " + Arrays.toString(a));
+    System.out.println("s = " + Arrays.toString(s));
+  }
 }

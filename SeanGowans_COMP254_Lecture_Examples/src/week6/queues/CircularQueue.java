@@ -20,22 +20,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package week6.queues;
 
 /**
- * An interface for a position which is an abstraction for the
- * location at which a single element is stored in a positional
- * container.
+ * This provides one additional method not part of the general Queue interface.
+ * A call to Q.rotate() is logically equivalent to the combination
+ * Q.enqueue(Q.dequeue()), yet may be implemented more efficiently in some realizations.
  *
  * @author Michael T. Goodrich
  * @author Roberto Tamassia
  * @author Michael H. Goldwasser
  */
-public interface Position<E> {
-    /**
-     * Returns the element stored at this position.
-     *
-     * @return the stored element
-     * @throws IllegalStateException if position no longer valid
-     */
-    E getElement() throws IllegalStateException;
+public interface CircularQueue<E> extends Queue<E> {
+  /**
+   * Rotates the front element of the queue to the back of the queue.
+   * This does nothing if the queue is empty.
+   */
+  void rotate();
 }

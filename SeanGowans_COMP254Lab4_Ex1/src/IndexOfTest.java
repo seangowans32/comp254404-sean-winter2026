@@ -1,18 +1,14 @@
-
-//import week7.LinkedPositionalList;
-//import week7.PositionalList;
-//import Position;
-
 public class IndexOfTest {
-
     public static <E> int indexOf(PositionalList<E> list, Position<E> p) {
+
         Position<E> walk = list.first();
         int index = 0;
 
-        while (walk != null) {
-            if (walk == p) {
+        while(walk != null) {
+            if(walk == p) {
                 return index;
             }
+
             walk = list.after(walk);
             index++;
         }
@@ -28,6 +24,7 @@ public class IndexOfTest {
         Position<String> p3 = list.addLast("C");
         Position<String> p4 = list.addLast("D");
 
+        System.out.println("List: " + list);
         System.out.println("Index of A: " + indexOf(list, p1));
         System.out.println("Index of B: " + indexOf(list, p2));
         System.out.println("Index of C: " + indexOf(list, p3));
