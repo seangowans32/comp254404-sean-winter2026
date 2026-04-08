@@ -48,6 +48,8 @@ public abstract class AbstractHashMap<K,V> extends AbstractMap<K,V> {
   private int prime;                   // prime factor
   private long scale, shift;           // the shift and scaling factors
 
+    private double maxLoadFactor;   // NEW
+
   /** Creates a hash table with the given capacity and prime factor. */
   public AbstractHashMap(int cap, int p) {
     prime = p;
