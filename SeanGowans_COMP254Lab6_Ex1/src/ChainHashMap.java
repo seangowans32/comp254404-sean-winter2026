@@ -42,7 +42,13 @@ public class ChainHashMap<K,V> extends AbstractHashMap<K,V> {
   public ChainHashMap(int cap) { super(cap); }
 
   /** Creates a hash table with the given capacity and prime factor. */
-  public ChainHashMap(int cap, int p) { super(cap, p); }
+    public ChainHashMap(double loadFactor) { super(loadFactor); }
+
+    public ChainHashMap(int cap, double loadFactor) { super(cap, loadFactor); }
+
+    public ChainHashMap(int cap, int p, double loadFactor) { super(cap, p, loadFactor); }
+
+
 
   /** Creates an empty table having length equal to current capacity. */
   @Override

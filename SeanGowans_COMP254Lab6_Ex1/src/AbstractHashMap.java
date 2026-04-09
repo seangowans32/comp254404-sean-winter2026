@@ -47,24 +47,44 @@ public abstract class AbstractHashMap<K,V> extends AbstractMap<K,V> {
   protected int capacity;              // length of the table
   private int prime;                   // prime factor
   private long scale, shift;           // the shift and scaling factors
-
-    private double maxLoadFactor;   // NEW
+    private double maxLoadFactor;
 
   /** Creates a hash table with the given capacity and prime factor. */
-  public AbstractHashMap(int cap, int p) {
-    prime = p;
-    capacity = cap;
-    Random rand = new Random();
-    scale = rand.nextInt(prime-1) + 1;
-    shift = rand.nextInt(prime);
-    createTable();
-  }
+    public AbstractHashMap(int cap, int p, double loadFactor) {
+        prime = p;
+        capacity = cap;
+        maxLoadFactor = loadFactor;
+
+        Random rand = new Random();
+        scale = rand.nextInt(prime - 1) + 1;
+        shift = rand.nextInt(prime);
+        createTable();
+    }
 
   /** Creates a hash table with given capacity and prime factor 109345121. */
-  public AbstractHashMap(int cap) { this(cap, 109345121); }  // default prime
+//  public AbstractHashMap(int cap) { this(cap, 109345121); }  // default prime
 
   /** Creates a hash table with capacity 17 and prime factor 109345121. */
-  public AbstractHashMap() { this(17); }                     // default capacity
+//  public AbstractHashMap() { this(17); }                     // default capacity
+
+    public AbstractHashMap(int cap, double loadFactor) {
+        this(cap, 109345121, loadFactor);
+    }
+
+    public AbstractHashMap(double loadFactor) {
+        this(17, 109345121, loadFactor);
+    }
+
+    public AbstractHashMap(int cap) {
+        this(cap, 109345121, 0.5);
+    }
+
+    public AbstractHashMap() {
+        this(17, 109345121, 0.5);
+    }
+
+
+
 
   // public methods
   /**
@@ -103,8 +123,13 @@ public abstract class AbstractHashMap<K,V> extends AbstractMap<K,V> {
   @Override
   public V put(K key, V value) {
     V answer = bucketPut(hashValue(key), key, value);
-    if (n > capacity / 2)              // keep load factor <= 0.5
-      resize(2 * capacity - 1);        // (or find a nearby prime)
+//    if (n > capacity / 2)              // keep load factor <= 0.5
+//      resize(2 * capacity - 1);        // (or find a nearby prime)
+
+        if((double) n / capacity > maxLoadFactor) {
+            resize(2 * capacity - 1);
+        }
+
     return answer;
   }
 
